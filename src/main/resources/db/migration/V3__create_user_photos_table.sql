@@ -15,5 +15,5 @@ CREATE TABLE IF NOT EXISTS user_photos
 
     created_at  TIMESTAMP WITH TIME ZONE DEFAULT now(),
     updated_at  TIMESTAMP WITH TIME ZONE DEFAULT now()
-)
+);
 
