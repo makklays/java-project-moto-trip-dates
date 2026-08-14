@@ -47,6 +47,14 @@ app:
     # Время жизни Refresh Token (например, 30 дней в миллисекундах)
     refresh-expiration-ms: 2592000000
 
+  s3:
+    endpoint: "http://localhost:9000" # Локальный адрес MinIO API из docker-compose
+    access-key: "minio_admin"
+    secret-key: "minio_secure_password"
+    region: "us-east-1"               # Для MinIO можно указать любой регион
+    bucket-name: "moto-user-photos"   # Имя папки (бакета) для картинок
+    public-url-prefix: "http://localhost:9000" # Префикс, который приклеится к URL фото
+
 # Настройки логирования (с эмодзи для удобства отладки)
 logging:
   level:

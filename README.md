@@ -25,3 +25,38 @@ dependencies and enables seamless migration to a microservices architecture in t
 - JDK 17
 - Docker (for PostgreSQL with PostGIS extension)
 
+## 🐳 How to Run the Project (Docker & Local Deployment)
+
+The platform requires **PostgreSQL/PostGIS**, **Apache Kafka** (for SOS alerts), and **MinIO** (S3-compatible storage for Tinder-style photos).
+
+### 🚀 Running the Full Stack (Including Java Backend)
+
+1. **Build and start** all services (including compiling the Java app inside Docker):
+    ```bash
+    docker-compose up -d --build
+    ```
+
+2. **Follow logs** of the running backend application:
+    ```bash
+    docker-compose logs -f app
+    ```
+
+3. **Stop the entire infrastructure**:
+    ```bash
+    docker-compose down
+    ```
+
+### 💻 Running Backend Locally (For Hot-Reload in IDE)
+
+If you prefer to run and debug the Java application directly within **IntelliJ IDEA**, you only need to start the backing infrastructure:
+
+1. **Start only dependencies** (DB, Kafka, MinIO):
+    ```bash
+    docker-compose up -d motodb kafka minio
+    ```
+
+2. Run the `JavaProjectMotoTripDatesApplication` from your IDE.
+
+3. **Access Infrastructure Web Consoles:**
+    * **MinIO Storage Browser:** [http://localhost:9001](http://localhost:9001) (User: `minio_admin`, Pass: `minio_secure_password`)
+
