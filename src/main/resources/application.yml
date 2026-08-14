@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: java-project-moto-trip-dates
+
+  # 1. Настройки блокирующего пула JDBC (для Spring Data JPA: Users, Riders, Matches)
+  datasource:
+    url: jdbc:postgresql://localhost:5432/motodb
+    username: postgres
+    password: your_secure_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    # Важно: используем диалект Hibernate Spatial для корректной работы PostGIS типов в JPA
+    database-platform: org.hibernate.spatial.dialect.postgis.PostgisPG95Dialect
+    hibernate:
+      ddl-auto: validate # Структуру таблиц строго контролирует Flyway миграциями
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # 2. Настройки реактивного пула R2DBC (для WebFlux: Live-tracking координат)
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/motodb
+    username: postgres
+    password: your_secure_password
+    pool:
+      initial-size: 10
+      max-size: 50
+
+  # 3. Настройки Flyway миграций
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+# 4. Кастомные настройки безопасности (JWT)
+app:
+  jwt:
+    # Секретный ключ для подписи токенов (минимум 256 бит / 32 символа)
+    secret: "your_super_secret_key_for_moto_trip_dates_backend_2026"
+    # Время жизни Access Token (например, 15 минут в миллисекундах)
+    access-expiration-ms: 900000
+    # Время жизни Refresh Token (например, 30 дней в миллисекундах)
+    refresh-expiration-ms: 2592000000
+
+# Настройки логирования (с эмодзи для удобства отладки)
+logging:
+  level:
+    root: INFO
+    com.techmatrix18: DEBUG
+    org.hibernate.SQL: DEBUG
+
