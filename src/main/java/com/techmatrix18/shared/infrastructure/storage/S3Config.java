@@ -1,4 +1,4 @@
-package com.techmatrix18.infrastructure.storage;
+package com.techmatrix18.shared.infrastructure.storage;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

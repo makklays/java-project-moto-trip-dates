@@ -1,4 +1,6 @@
-package com.techmatrix18.domain.exception;
+package com.techmatrix18.token.domain.exception;
+
+import com.techmatrix18.user.domain.exception.DomainException;
 
 /**
  * InvalidTokenException
