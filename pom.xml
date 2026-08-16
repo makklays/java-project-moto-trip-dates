@@ -109,6 +109,11 @@
             <version>2.25.20</version> <!-- Стабильная версия для Java 17 -->
         </dependency>
 
+        <!-- validation -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
