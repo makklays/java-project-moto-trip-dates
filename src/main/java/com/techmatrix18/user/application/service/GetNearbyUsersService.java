@@ -10,7 +10,13 @@ import java.util.List;
 
 /**
  * Service orchestrator executing geospatial radius search for active domain aggregates.
+ *
+ * @author Alexander Kuziv <makklays@gmail.com>
+ * @company TechMatrix18
+ * @version 0.0.1
+ * @since 19.08.2026
  */
+
 @Service
 public class GetNearbyUsersService implements GetNearbyUsersUseCase {
 

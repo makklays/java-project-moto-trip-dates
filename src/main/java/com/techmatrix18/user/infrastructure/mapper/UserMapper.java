@@ -9,7 +9,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 /**
- * UserMapper
+ * UserMapper (MapStruct)
  *
  * @author Alexander Kuziv <makklays@gmail.com>
  * @company TechMatrix18
