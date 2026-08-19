@@ -12,8 +12,8 @@ import java.time.Instant;
  */
 
 public record InitiatePasswordResetCommand(
-        Long userId,
-        String passwordResetToken,
-        Instant expirationTime
+    Long userId,
+    String passwordResetToken,
+    Instant expirationTime
 ) {}
 

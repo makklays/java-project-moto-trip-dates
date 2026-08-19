@@ -12,11 +12,11 @@ import java.time.Instant;
  */
 
 public record IssueTokenCommand(
-        Long userId,
-        String token,
-        Instant expiredToken,
-        String refreshToken,
-        Instant expiredRefreshToken,
-        String ipAddress,
-        String userAgent
+    Long userId,
+    String token,
+    Instant expiredToken,
+    String refreshToken,
+    Instant expiredRefreshToken,
+    String ipAddress,
+    String userAgent
 ) {}

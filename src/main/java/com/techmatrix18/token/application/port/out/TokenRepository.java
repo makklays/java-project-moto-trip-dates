@@ -1,6 +1,8 @@
 package com.techmatrix18.token.application.port.out;
 
 import com.techmatrix18.token.domain.model.Token;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,5 +34,9 @@ public interface TokenRepository {
     // Revokes all active sessions for a specific user.
     // Useful for password changes or forced logouts from all devices.
     void revokeAllByUserId(Long userId);
+
+    List<Token> findByIpAddress(String ipAddress, boolean onlyActive);
+
+    List<Token> findAllActiveByUserId(Long userId);
 }
 

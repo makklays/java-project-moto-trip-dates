@@ -2,10 +2,7 @@ package com.techmatrix18.user.infrastructure.http;
 
 import com.techmatrix18.user.application.command.RegisterUserCommand;
 import com.techmatrix18.user.application.port.in.*;
-import com.techmatrix18.user.application.query.GetNearbyUsersQuery;
-import com.techmatrix18.user.application.query.GetPublicProfileQuery;
-import com.techmatrix18.user.application.query.GetUserQuery;
-import com.techmatrix18.user.application.query.SearchUsersQuery;
+import com.techmatrix18.user.application.query.*;
 import com.techmatrix18.user.domain.model.User;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -34,6 +31,7 @@ public class UserController {
     private final SearchUsersUseCase searchUsersUseCase;
     private final GetPublicProfileUseCase getPublicProfileUseCase;
     private final GetNearbyUsersUseCase getNearbyUsersUseCase;
+    private final FindUserByEmailUseCase findUserByEmailUseCase;
 
     // Внедряем все Use Cases через единственный конструктор
     public UserController(
@@ -41,12 +39,14 @@ public class UserController {
             GetUserUseCase getUserUseCase,
             SearchUsersUseCase searchUsersUseCase,
             GetPublicProfileUseCase getPublicProfileUseCase,
-            GetNearbyUsersUseCase getNearbyUsersUseCase) {
+            GetNearbyUsersUseCase getNearbyUsersUseCase,
+            FindUserByEmailUseCase findUserByEmailUseCase) {
         this.registerUserUseCase = registerUserUseCase;
         this.getUserUseCase = getUserUseCase;
         this.searchUsersUseCase = searchUsersUseCase;
         this.getPublicProfileUseCase = getPublicProfileUseCase;
         this.getNearbyUsersUseCase = getNearbyUsersUseCase;
+        this.findUserByEmailUseCase = findUserByEmailUseCase;
     }
 
     /**
@@ -138,9 +138,27 @@ public class UserController {
 
         // Мапим стримом список из домена в инфраструктурные DTO
         List<UserResponse> responseList = users.stream()
-                .map(UserResponse::fromDomain)
-                .collect(Collectors.toList());
+            .map(UserResponse::fromDomain)
+            .collect(Collectors.toList());
         return ResponseEntity.ok(responseList);
+    }
+
+    /**
+     * GET /api/v1/users/by-email
+     * Получение профиля пользователя по его Email
+     * Пример: /api/v1/users/by-email?email=alex@techmatrix18.com
+     */
+    @GetMapping("/by-email")
+    public ResponseEntity<UserResponse> getUserByEmail(@RequestParam("email") String email) {
+
+        // 1. Упаковываем входной параметр в объект запроса Query
+        FindUserByEmailQuery query = new FindUserByEmailQuery(email);
+
+        // 2. Вызываем Use Case и мапим Optional-результат в безопасный ответ
+        return findUserByEmailUseCase.execute(query)
+            .map(user -> ResponseEntity.ok(UserResponse.fromDomain(user)))
+            // Если пользователь с таким email отсутствует, отдаем 404
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
 

@@ -10,8 +10,8 @@ package com.techmatrix18.token.application.command;
  */
 
 public record RefreshTokenCommand(
-        String refreshToken,
-        String ipAddress,
-        String userAgent
+    String refreshToken,
+    String ipAddress,
+    String userAgent
 ) {}
 

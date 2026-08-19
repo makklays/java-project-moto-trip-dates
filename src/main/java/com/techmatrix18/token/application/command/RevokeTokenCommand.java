@@ -10,6 +10,6 @@ package com.techmatrix18.token.application.command;
  */
 
 public record RevokeTokenCommand(
-        String token
+    String token
 ) {}
 
