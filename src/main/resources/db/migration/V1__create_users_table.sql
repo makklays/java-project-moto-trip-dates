@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users
     -- Data for dates
     nickname    VARCHAR(100) NOT NULL,
     gender      VARCHAR(20),      -- MALE, FEMALE
-    age         INTEGER,          -- 18
+
     avatar_url  VARCHAR(255),     -- from S3
     birth_date  DATE,             -- 14.08.2026
     bio         TEXT,             -- О себе

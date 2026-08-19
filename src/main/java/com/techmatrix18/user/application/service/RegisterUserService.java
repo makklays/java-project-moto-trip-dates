@@ -30,7 +30,7 @@ public class RegisterUserService implements RegisterUserUseCase {
     @Override
     @Transactional
     public User execute(RegisterUserCommand command) {
-        // 1. Проверяем инвариант уникальности Email
+        // 1. Проверяем инвариант уникальности Email (отсекает 99% обычных повторов)
         if (userRepository.existsByEmail(command.email())) {
             throw new DomainException("User with email '" + command.email() + "' already exists");
         }
@@ -50,14 +50,18 @@ public class RegisterUserService implements RegisterUserUseCase {
                 .mobile(command.mobile())
                 .nickname(command.nickname())
                 .gender(command.gender())
-                .age(command.age())
                 .birthDate(command.birthDate())
                 .bio(command.bio())
                 .datingStatus(command.datingStatus())
                 .build();
 
-        // 4. Сохраняем агрегат в базу данных через инвертированный выходной порт
-        return userRepository.save(newUser);
+        // 4. Оборачиваем немедленный сброс в БД в try-catch для отлова Race Condition
+        try {
+            return userRepository.saveAndFlush(newUser);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            // Трансформируем системную ошибку конкурентной записи в понятный доменный Exception
+            throw new DomainException("User registration failed due to a conflict. Email or Username might already be taken.", e);
+        }
     }
 }
 

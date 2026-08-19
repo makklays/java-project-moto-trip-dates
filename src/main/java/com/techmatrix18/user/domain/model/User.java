@@ -23,7 +23,6 @@ public class User {
     // Data for dates
     private String nickname;
     private String gender;
-    private Integer age;
     private String avatarUrl;
     private LocalDate birthDate;
     private String bio;
@@ -43,7 +42,6 @@ public class User {
         this.mobile = builder.mobile;
         this.nickname = builder.nickname;
         this.gender = builder.gender;
-        this.age = builder.age;
         this.avatarUrl = builder.avatarUrl;
         this.birthDate = builder.birthDate;
         this.bio = builder.bio;
@@ -68,7 +66,6 @@ public class User {
     public String getMobile() { return mobile; }
     public String getNickname() { return nickname; }
     public String getGender() { return gender; }
-    public Integer getAge() { return age; }
     public String getAvatarUrl() { return avatarUrl; }
     public LocalDate getBirthDate() { return birthDate; }
     public String getBio() { return bio; }
@@ -82,11 +79,10 @@ public class User {
     /**
      * Updates profile data related to motorcycle dating.
      */
-    public void updateDatingProfile(String nickname, String gender, Integer age,
-                                    LocalDate birthDate, String bio, String datingStatus) {
+    public void updateDatingProfile(String nickname, String gender, LocalDate birthDate,
+                                    String bio, String datingStatus) {
         this.nickname = nickname;
         this.gender = gender;
-        this.age = age;
         this.birthDate = birthDate;
         this.bio = bio;
         this.datingStatus = datingStatus != null ? datingStatus : "DRIVER";
@@ -125,7 +121,6 @@ public class User {
         private String mobile;
         private String nickname;
         private String gender;
-        private Integer age;
         private String avatarUrl;
         private LocalDate birthDate;
         private String bio;
@@ -141,7 +136,6 @@ public class User {
         public Builder mobile(String mobile) { this.mobile = mobile; return this; }
         public Builder nickname(String nickname) { this.nickname = nickname; return this; }
         public Builder gender(String gender) { this.gender = gender; return this; }
-        public Builder age(Integer age) { this.age = age; return this; }
         public Builder avatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; return this; }
         public Builder birthDate(LocalDate birthDate) { this.birthDate = birthDate; return this; }
         public Builder bio(String bio) { this.bio = bio; return this; }
